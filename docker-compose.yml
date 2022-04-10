@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres
+    container_name: kino-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=example
+    ports:
+      - 5432:5432
