@@ -1,5 +1,6 @@
 using Kino;
 using Kino.Data;
+using Kino.Initializers;
 using Kino.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +29,6 @@ builder.Services
     .AddOptionsWithSection<JwtOptions>(builder.Configuration)
     .AddSingleton<TokenService>();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,4 +44,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.InitAsync();
+await app.RunAsync();
