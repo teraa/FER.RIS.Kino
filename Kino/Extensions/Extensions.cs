@@ -2,26 +2,6 @@ namespace Kino.Extensions;
 
 public static class Extensions
 {
-    public static TService Get<TService>(this IServiceProvider services)
-        where TService : notnull
-        => services.GetRequiredService<TService>();
-
-    public static TService Get<TService>(this IServiceScope scope)
-        where TService : notnull
-        => scope.ServiceProvider.GetRequiredService<TService>();
-
-    public static IConfigurationSection GetOptionsSection<TOptions>(this IConfiguration configuration)
-    {
-        const string suffix = "Options";
-
-        string name = typeof(TOptions).Name;
-
-        if (name.EndsWith(suffix))
-            name = name[..^suffix.Length];
-
-        return configuration.GetRequiredSection(name);
-    }
-
     public static TOptions GetOptions<TOptions>(this IConfiguration configuration)
     {
         return configuration.GetOptionsSection<TOptions>().Get<TOptions>();
@@ -31,5 +11,17 @@ public static class Extensions
         where TOptions : class
     {
         return services.Configure<TOptions>(configuration.GetOptionsSection<TOptions>());
+    }
+    
+    private static IConfigurationSection GetOptionsSection<TOptions>(this IConfiguration configuration)
+    {
+        const string suffix = "Options";
+
+        string name = typeof(TOptions).Name;
+
+        if (name.EndsWith(suffix))
+            name = name[..^suffix.Length];
+
+        return configuration.GetRequiredSection(name);
     }
 }
