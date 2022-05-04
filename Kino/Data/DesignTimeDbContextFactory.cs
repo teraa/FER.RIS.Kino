@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Kino.Data;
 
+[UsedImplicitly]
 internal class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<KinoDbContext>
 {
     public KinoDbContext CreateDbContext(string[] args)
