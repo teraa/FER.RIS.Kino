@@ -7,3 +7,9 @@ public class DbOptions
 {
     public string ConnectionString { get; set; }
 }
+
+public class JwtOptions
+{
+    public string SigningKey { get; set; }
+    public TimeSpan TokenLifetime { get; set; }
+}
