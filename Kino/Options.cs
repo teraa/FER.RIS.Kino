@@ -12,4 +12,5 @@ public class JwtOptions
 {
     public string SigningKey { get; set; }
     public TimeSpan TokenLifetime { get; set; }
+    public TimeSpan ClockSkew { get; set; }
 }
