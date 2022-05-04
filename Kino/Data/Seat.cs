@@ -12,7 +12,7 @@ public class Seat
     public int HallId { get; set; }
     public string Type { get; set; }
     public decimal PriceCoefficient { get; set; }
-    
+
     public Hall Hall { get; set; }
     public ICollection<Ticket> Tickets { get; set; }
 }

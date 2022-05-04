@@ -1,7 +1,5 @@
-using Kino.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Kino.Extensions;
 
 namespace Kino.Data;
 

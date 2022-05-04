@@ -11,7 +11,7 @@ public class Review
     public int Score { get; set; }
     public string Text { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
-    
+
     public User User { get; set; }
     public Film Film { get; set; }
 }

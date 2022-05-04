@@ -9,7 +9,7 @@ public class Ticket
     public int Id { get; set; }
     public int SeatId { get; set; }
     public int ScreeningId { get; set; }
-    
+
     public Seat Seat { get; set; }
     public Screening Screening { get; set; }
 }

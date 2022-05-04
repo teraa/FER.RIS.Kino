@@ -10,7 +10,7 @@ public class Screening
     public int HallId { get; set; }
     public DateTimeOffset StartAt { get; set; }
     public decimal BasePrice { get; set; }
-    
+
     public Film Film { get; set; }
     public Hall Hall { get; set; }
     public ICollection<Ticket> Tickets { get; set; }

@@ -10,7 +10,7 @@ public class User
     public string Name { get; set; }
     public byte[] PasswordHash { get; set; }
     public byte[] PasswordSalt { get; set; }
-    
+
     public ICollection<Claim> Claims { get; set; }
     public ICollection<Review> Reviews { get; set; }
 }

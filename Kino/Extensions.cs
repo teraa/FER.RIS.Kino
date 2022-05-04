@@ -1,4 +1,4 @@
-namespace Kino.Extensions;
+namespace Kino;
 
 public static class Extensions
 {
@@ -12,7 +12,7 @@ public static class Extensions
     {
         return services.Configure<TOptions>(configuration.GetOptionsSection<TOptions>());
     }
-    
+
     private static IConfigurationSection GetOptionsSection<TOptions>(this IConfiguration configuration)
     {
         const string suffix = "Options";
