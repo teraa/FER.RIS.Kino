@@ -1,5 +1,7 @@
 using Kino;
+using Kino.Data;
 using Kino.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services
+    .AddDbContext<KinoDbContext>((services, options) =>
+    {
+        var dbOptions = services
+            .GetRequiredService<IConfiguration>()
+            .GetOptions<DbOptions>();
+
+        options.UseNpgsql(dbOptions.ConnectionString, contextOptions =>
+        {
+            contextOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+        });
+    })
+    .AddAsyncInitializer<MigrationInitializer>()
     .AddOptionsWithSection<JwtOptions>(builder.Configuration)
     .AddSingleton<TokenService>();
 
