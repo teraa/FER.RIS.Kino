@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Kino;
 using Kino.Data;
 using Kino.Initializers;
@@ -39,7 +40,8 @@ builder.Services
     .AddAsyncInitializer<MigrationInitializer>()
     .AddOptionsWithSection<JwtOptions>(builder.Configuration)
     .AddSingleton<TokenService>()
-    .AddMediatR(typeof(Program));
+    .AddMediatR(typeof(Program))
+    .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining(typeof(Program)));
 
 var app = builder.Build();
 

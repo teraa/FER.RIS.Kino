@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using FluentValidation;
+using JetBrains.Annotations;
 using Kino.Data;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,16 @@ public static class Create
         int HallId,
         DateTimeOffset StartAt,
         decimal BasePrice);
+
+    [UsedImplicitly]
+    public class ModelValidator : AbstractValidator<Model>
+    {
+        public ModelValidator()
+        {
+            RuleFor(x => x.StartAt).NotEmpty();
+            RuleFor(x => x.BasePrice).GreaterThanOrEqualTo(0);
+        }
+    }
 
     [PublicAPI]
     public record Result(int Id);

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using FluentValidation;
+using JetBrains.Annotations;
 using Kino.Data;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,17 @@ public static class Create
         string Title,
         int DurationMinutes,
         string[] Genres);
+
+    [UsedImplicitly]
+    public class ModelValidator : AbstractValidator<Model>
+    {
+        public ModelValidator()
+        {
+            RuleFor(x => x.Title).NotEmpty();
+            RuleFor(x => x.DurationMinutes).GreaterThan(0);
+            RuleForEach(x => x.Genres).NotEmpty();
+        }
+    }
 
     [PublicAPI]
     public record Result(int Id);

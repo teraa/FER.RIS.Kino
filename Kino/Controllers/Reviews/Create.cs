@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using FluentValidation;
+using JetBrains.Annotations;
 using Kino.Data;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,16 @@ public static class Create
         int FilmId,
         int Score,
         string Text);
+
+    [UsedImplicitly]
+    public class ModelValidator : AbstractValidator<Model>
+    {
+        public ModelValidator()
+        {
+            RuleFor(x => x.Score).InclusiveBetween(1, 10);
+            RuleFor(x => x.Text).NotEmpty();
+        }
+    }
 
     [PublicAPI]
     public record Result(int Id);
