@@ -39,7 +39,7 @@ public static class Create
 
             return new CreatedAtActionResult(
                 actionName: nameof(Get),
-                controllerName: nameof(Films),
+                controllerName: nameof(FilmsController),
                 routeValues: result,
                 value: result);
         }
