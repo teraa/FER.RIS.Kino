@@ -4,7 +4,11 @@ using Kino.Initializers;
 using Kino.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using KinoDbContext = Kino.KinoDbContext;
+
+Serilog.Debugging.SelfLog.Enable(x
+    => Console.WriteLine($"<4>{x}"));
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,10 @@ builder.Host
     {
         options.ValidateOnBuild = true;
         options.ValidateScopes = true;
+    })
+    .UseSerilog((hostContext, options) =>
+    {
+        options.ReadFrom.Configuration(hostContext.Configuration);
     });
 
 // Add services to the container.
