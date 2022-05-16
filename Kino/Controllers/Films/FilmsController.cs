@@ -21,8 +21,8 @@ public class FilmsController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(Create.Result), StatusCodes.Status201Created)]
-    public async Task<IActionResult> Create(Create.Command command, CancellationToken cancellationToken)
-        => await _mediator.Send(command, cancellationToken);
+    public async Task<IActionResult> Create(Model model, CancellationToken cancellationToken)
+        => await _mediator.Send(new Create.Command(model), cancellationToken);
 
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
