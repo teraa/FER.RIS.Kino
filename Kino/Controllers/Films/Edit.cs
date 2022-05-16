@@ -13,12 +13,6 @@ public static class Edit
         Model Model
     ) : IRequest<IActionResult>;
 
-    public record Model(
-        string Title,
-        int DurationMinutes,
-        string[] Genres
-    ) : IRequest<IActionResult>;
-
     [UsedImplicitly]
     public class Handler : IRequestHandler<Command, IActionResult>
     {

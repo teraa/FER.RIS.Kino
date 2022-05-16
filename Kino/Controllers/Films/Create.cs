@@ -7,11 +7,8 @@ namespace Kino.Controllers.Films;
 
 public static class Create
 {
-    public record Command(
-        string Title,
-        int DurationMinutes,
-        string[] Genres
-    ) : IRequest<IActionResult>;
+    public record Command(Model Model)
+        : IRequest<IActionResult>;
 
     [PublicAPI]
     public record Result(int Id);
@@ -30,9 +27,9 @@ public static class Create
         {
             var entity = new Film
             {
-                Title = request.Title,
-                Duration = TimeSpan.FromMinutes(request.DurationMinutes),
-                Genres = request.Genres,
+                Title = request.Model.Title,
+                Duration = TimeSpan.FromMinutes(request.Model.DurationMinutes),
+                Genres = request.Model.Genres,
             };
 
             _ctx.Films.Add(entity);
