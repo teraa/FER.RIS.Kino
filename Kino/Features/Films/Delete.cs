@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Kino.Data;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +32,7 @@ public static class Delete
 
             _ctx.Films.Remove(entity);
             await _ctx.SaveChangesAsync(cancellationToken);
-            
+
             return new NoContentResult();
         }
     }

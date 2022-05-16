@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using JetBrains.Annotations;
-using Kino.Data;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

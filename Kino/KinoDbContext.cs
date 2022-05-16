@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Data;
+namespace Kino;
 
 #pragma warning disable CS8618
 public partial class KinoDbContext : DbContext

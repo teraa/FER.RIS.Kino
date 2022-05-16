@@ -1,6 +1,5 @@
 ﻿using Extensions.Hosting.AsyncInitialization;
 using JetBrains.Annotations;
-using Kino.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kino.Initializers;

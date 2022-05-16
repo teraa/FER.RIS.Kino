@@ -1,10 +1,10 @@
 using FluentValidation.AspNetCore;
 using Kino;
-using Kino.Data;
 using Kino.Initializers;
 using Kino.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using KinoDbContext = Kino.KinoDbContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
