@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Kino.Controllers.Reviews;
+namespace Kino.Features.Tickets;
 
 [ApiController]
 [Route("[controller]")]
-public class ReviewsController : ControllerBase
+public class TicketsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public ReviewsController(IMediator mediator)
+    public TicketsController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -27,7 +27,7 @@ public class ReviewsController : ControllerBase
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Edit(int id, Edit.Model model, CancellationToken cancellationToken)
+    public async Task<IActionResult> Edit(int id, Create.Model model, CancellationToken cancellationToken)
         => await _mediator.Send(new Edit.Command(id, model), cancellationToken);
 
     [HttpDelete("{id}")]

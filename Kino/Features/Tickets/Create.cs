@@ -4,14 +4,19 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Controllers.Tickets;
+namespace Kino.Features.Tickets;
 
-public static class Edit
+public static class Create
 {
-    public record Command(
-        int Id,
-        Create.Model Model
-    ) : IRequest<IActionResult>;
+    public record Command(Model Model)
+        : IRequest<IActionResult>;
+
+    public record Model(
+        int SeatId,
+        int ScreeningId);
+
+    [PublicAPI]
+    public record Result(int Id);
 
     [UsedImplicitly]
     public class Handler : IRequestHandler<Command, IActionResult>
@@ -25,15 +30,13 @@ public static class Edit
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            var entity = await _ctx.Tickets
-                .Where(x => x.Id == request.Id)
-                .FirstOrDefaultAsync(cancellationToken);
+            var entity = new Ticket
+            {
+                SeatId = request.Model.SeatId,
+                ScreeningId = request.Model.ScreeningId,
+            };
 
-            if (entity is null)
-                return new NotFoundResult();
-
-            entity.SeatId = request.Model.SeatId;
-            entity.ScreeningId = request.Model.ScreeningId;
+            _ctx.Tickets.Add(entity);
 
             try
             {
@@ -44,7 +47,9 @@ public static class Edit
                 return new BadRequestResult();
             }
 
-            return new NoContentResult();
+            var result = new Result(entity.Id);
+
+            return new OkObjectResult(result);
         }
     }
 }

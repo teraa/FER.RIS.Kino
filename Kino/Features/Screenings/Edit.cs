@@ -4,12 +4,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Controllers.Films;
+namespace Kino.Features.Screenings;
 
-public static class Delete
+public static class Edit
 {
     public record Command(
-        int Id
+        int Id,
+        Create.Model Model
     ) : IRequest<IActionResult>;
 
     [UsedImplicitly]
@@ -24,16 +25,27 @@ public static class Delete
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            var entity = await _ctx.Films
+            var entity = await _ctx.Screenings
                 .Where(x => x.Id == request.Id)
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (entity is null)
                 return new NotFoundResult();
 
-            _ctx.Films.Remove(entity);
-            await _ctx.SaveChangesAsync(cancellationToken);
-            
+            entity.FilmId = request.Model.FilmId;
+            entity.HallId = request.Model.HallId;
+            entity.StartAt = request.Model.StartAt;
+            entity.BasePrice = request.Model.BasePrice;
+
+            try
+            {
+                await _ctx.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateException)
+            {
+                return new BadRequestResult();
+            }
+
             return new NoContentResult();
         }
     }

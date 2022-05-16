@@ -5,16 +5,16 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Controllers.Reviews;
+namespace Kino.Features.Reviews;
 
-public static class Edit
+public static class Create
 {
-    public record Command(
-        int Id,
-        Model Model
-    ) : IRequest<IActionResult>;
+    public record Command(Model Model)
+        : IRequest<IActionResult>;
 
     public record Model(
+        int UserId, // TODO: from session
+        int FilmId,
         int Score,
         string Text);
 
@@ -28,6 +28,9 @@ public static class Edit
         }
     }
 
+    [PublicAPI]
+    public record Result(int Id);
+
     [UsedImplicitly]
     public class Handler : IRequestHandler<Command, IActionResult>
     {
@@ -40,15 +43,16 @@ public static class Edit
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            var entity = await _ctx.Reviews
-                .Where(x => x.Id == request.Id)
-                .FirstOrDefaultAsync(cancellationToken);
+            var entity = new Review
+            {
+                UserId = request.Model.UserId,
+                FilmId = request.Model.FilmId,
+                Score = request.Model.Score,
+                Text = request.Model.Text,
+                CreatedAt = DateTimeOffset.UtcNow,
+            };
 
-            if (entity is null)
-                return new NotFoundResult();
-
-            entity.Score = request.Model.Score;
-            entity.Text = request.Model.Text;
+            _ctx.Reviews.Add(entity);
 
             try
             {
@@ -59,7 +63,9 @@ public static class Edit
                 return new BadRequestResult();
             }
 
-            return new NoContentResult();
+            var result = new Result(entity.Id);
+
+            return new OkObjectResult(result);
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Kino.Controllers.Films;
+namespace Kino.Features.Screenings;
 
 [ApiController]
 [Route("[controller]")]
-public class FilmsController : ControllerBase
+public class ScreeningsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public FilmsController(IMediator mediator)
+    public ScreeningsController(IMediator mediator)
     {
         _mediator = mediator;
     }

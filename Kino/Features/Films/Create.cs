@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Controllers.Reviews;
+namespace Kino.Features.Films;
 
 public static class Create
 {
@@ -13,18 +13,18 @@ public static class Create
         : IRequest<IActionResult>;
 
     public record Model(
-        int UserId, // TODO: from session
-        int FilmId,
-        int Score,
-        string Text);
+        string Title,
+        int DurationMinutes,
+        string[] Genres);
 
     [UsedImplicitly]
     public class ModelValidator : AbstractValidator<Model>
     {
         public ModelValidator()
         {
-            RuleFor(x => x.Score).InclusiveBetween(1, 10);
-            RuleFor(x => x.Text).NotEmpty();
+            RuleFor(x => x.Title).NotEmpty();
+            RuleFor(x => x.DurationMinutes).GreaterThan(0);
+            RuleForEach(x => x.Genres).NotEmpty();
         }
     }
 
@@ -43,16 +43,14 @@ public static class Create
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            var entity = new Review
+            var entity = new Film
             {
-                UserId = request.Model.UserId,
-                FilmId = request.Model.FilmId,
-                Score = request.Model.Score,
-                Text = request.Model.Text,
-                CreatedAt = DateTimeOffset.UtcNow,
+                Title = request.Model.Title,
+                Duration = TimeSpan.FromMinutes(request.Model.DurationMinutes),
+                Genres = request.Model.Genres,
             };
 
-            _ctx.Reviews.Add(entity);
+            _ctx.Films.Add(entity);
 
             try
             {

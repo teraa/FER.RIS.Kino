@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Kino.Controllers;
+namespace Kino.Features;
 
 [ApiController]
 [Route("[controller]")]

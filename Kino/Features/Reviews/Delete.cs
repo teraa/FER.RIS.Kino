@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Controllers.Reviews;
+namespace Kino.Features.Reviews;
 
 public static class Delete
 {

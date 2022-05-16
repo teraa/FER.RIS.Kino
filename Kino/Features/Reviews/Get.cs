@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Controllers.Films;
+namespace Kino.Features.Reviews;
 
 public static class Get
 {
@@ -13,9 +13,11 @@ public static class Get
     [PublicAPI]
     public record Result(
         int Id,
-        string Title,
-        int DurationMinutes,
-        string[] Genres);
+        int UserId,
+        int FilmId,
+        int Score,
+        string Text,
+        DateTimeOffset CreatedAt);
 
     [UsedImplicitly]
     public class Handler : IRequestHandler<Query, IActionResult>
@@ -29,9 +31,9 @@ public static class Get
 
         public async Task<IActionResult> Handle(Query request, CancellationToken cancellationToken)
         {
-            var results = await _ctx.Films
+            var results = await _ctx.Reviews
                 .OrderBy(x => x.Id)
-                .Select(x => new Result(x.Id, x.Title, (int)x.Duration.TotalMinutes, x.Genres))
+                .Select(x => new Result(x.Id, x.UserId, x.FilmId, x.Score, x.Text, x.CreatedAt))
                 .ToListAsync(cancellationToken);
 
             return new OkObjectResult(results);

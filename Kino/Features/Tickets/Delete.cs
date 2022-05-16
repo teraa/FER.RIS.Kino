@@ -4,13 +4,12 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Controllers.Screenings;
+namespace Kino.Features.Tickets;
 
-public static class Edit
+public static class Delete
 {
     public record Command(
-        int Id,
-        Create.Model Model
+        int Id
     ) : IRequest<IActionResult>;
 
     [UsedImplicitly]
@@ -25,26 +24,15 @@ public static class Edit
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            var entity = await _ctx.Screenings
+            var entity = await _ctx.Tickets
                 .Where(x => x.Id == request.Id)
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (entity is null)
                 return new NotFoundResult();
 
-            entity.FilmId = request.Model.FilmId;
-            entity.HallId = request.Model.HallId;
-            entity.StartAt = request.Model.StartAt;
-            entity.BasePrice = request.Model.BasePrice;
-
-            try
-            {
-                await _ctx.SaveChangesAsync(cancellationToken);
-            }
-            catch (DbUpdateException)
-            {
-                return new BadRequestResult();
-            }
+            _ctx.Tickets.Remove(entity);
+            await _ctx.SaveChangesAsync(cancellationToken);
 
             return new NoContentResult();
         }
