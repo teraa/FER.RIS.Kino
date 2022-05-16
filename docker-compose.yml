@@ -20,3 +20,5 @@ services:
     environment:
       - Db__ConnectionString=Host=db;Port=5432;Database=kino;Username=postgres;Password=example;Include Error Detail=true
       - ASPNETCORE_ENVIRONMENT=Development
+      # - Serilog__WriteTo__Seq__Args__serverUrl=
+      # - Serilog__WriteTo__Seq__Args__apiKey=
