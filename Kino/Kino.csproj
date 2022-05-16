@@ -4,7 +4,8 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-    </PropertyGroup>
+      <UserSecretsId>ff52ec66-38df-4a66-840a-bdf8bbb0b970</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="EFCore.NamingConventions" Version="6.0.0" />
