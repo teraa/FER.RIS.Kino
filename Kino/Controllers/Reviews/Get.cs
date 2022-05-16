@@ -32,6 +32,7 @@ public static class Get
         public async Task<IActionResult> Handle(Query request, CancellationToken cancellationToken)
         {
             var results = await _ctx.Reviews
+                .OrderBy(x => x.Id)
                 .Select(x => new Result(x.Id, x.UserId, x.FilmId, x.Score, x.Text, x.CreatedAt))
                 .ToListAsync(cancellationToken);
 

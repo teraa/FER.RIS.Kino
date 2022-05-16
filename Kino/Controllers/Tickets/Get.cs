@@ -29,6 +29,7 @@ public static class Get
         public async Task<IActionResult> Handle(Query request, CancellationToken cancellationToken)
         {
             var results = await _ctx.Tickets
+                .OrderBy(x => x.Id)
                 .Select(x => new Result(x.Id, x.SeatId, x.ScreeningId))
                 .ToListAsync(cancellationToken);
 
