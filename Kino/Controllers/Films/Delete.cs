@@ -31,7 +31,7 @@ public static class Delete
             if (entity is null)
                 return new NotFoundResult();
 
-            _ctx.Remove(entity);
+            _ctx.Films.Remove(entity);
             return new NoContentResult();
         }
     }

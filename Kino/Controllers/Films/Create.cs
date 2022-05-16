@@ -35,7 +35,7 @@ public static class Create
                 Genres = request.Genres,
             };
 
-            _ctx.Add(entity);
+            _ctx.Films.Add(entity);
             await _ctx.SaveChangesAsync(cancellationToken);
 
             var result = new Result(entity.Id);
