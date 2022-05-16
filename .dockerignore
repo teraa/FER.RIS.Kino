@@ -13,3 +13,6 @@ Dockerfile*
 .gitignore
 .env
 *.DotSettings.user
+secrets.template.json
+secrets.json
+set-secrets.sh
