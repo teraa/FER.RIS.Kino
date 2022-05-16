@@ -2,6 +2,7 @@ using Kino;
 using Kino.Data;
 using Kino.Initializers;
 using Kino.Services;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,7 +38,8 @@ builder.Services
     })
     .AddAsyncInitializer<MigrationInitializer>()
     .AddOptionsWithSection<JwtOptions>(builder.Configuration)
-    .AddSingleton<TokenService>();
+    .AddSingleton<TokenService>()
+    .AddMediatR(typeof(Program));
 
 var app = builder.Build();
 
