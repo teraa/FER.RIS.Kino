@@ -10,6 +10,11 @@ public static class Create
     public record Command(Model Model)
         : IRequest<IActionResult>;
 
+    public record Model(
+        string Title,
+        int DurationMinutes,
+        string[] Genres);
+
     [PublicAPI]
     public record Result(int Id);
 

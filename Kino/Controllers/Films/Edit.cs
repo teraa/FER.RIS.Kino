@@ -10,7 +10,7 @@ public static class Edit
 {
     public record Command(
         int Id,
-        Model Model
+        Create.Model Model
     ) : IRequest<IActionResult>;
 
     [UsedImplicitly]
