@@ -32,6 +32,8 @@ public static class Delete
                 return new NotFoundResult();
 
             _ctx.Reviews.Remove(entity);
+            await _ctx.SaveChangesAsync(cancellationToken);
+
             return new NoContentResult();
         }
     }
