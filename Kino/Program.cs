@@ -8,7 +8,7 @@ using Serilog;
 using KinoDbContext = Kino.KinoDbContext;
 
 Serilog.Debugging.SelfLog.Enable(x
-    => Console.WriteLine($"<4>{x}"));
+    => Console.WriteLine($"SERILOG: {x}"));
 
 var builder = WebApplication.CreateBuilder(args);
 
