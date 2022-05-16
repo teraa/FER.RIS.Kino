@@ -50,7 +50,15 @@ public static class Edit
             entity.Score = request.Model.Score;
             entity.Text = request.Model.Text;
 
-            await _ctx.SaveChangesAsync(cancellationToken);
+            try
+            {
+                await _ctx.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateException)
+            {
+                return new BadRequestResult();
+            }
+
             return new NoContentResult();
         }
     }

@@ -35,7 +35,15 @@ public static class Edit
             entity.SeatId = request.Model.SeatId;
             entity.ScreeningId = request.Model.ScreeningId;
 
-            await _ctx.SaveChangesAsync(cancellationToken);
+            try
+            {
+                await _ctx.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateException)
+            {
+                return new BadRequestResult();
+            }
+
             return new NoContentResult();
         }
     }

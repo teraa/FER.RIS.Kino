@@ -37,7 +37,15 @@ public static class Edit
             entity.StartAt = request.Model.StartAt;
             entity.BasePrice = request.Model.BasePrice;
 
-            await _ctx.SaveChangesAsync(cancellationToken);
+            try
+            {
+                await _ctx.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateException)
+            {
+                return new BadRequestResult();
+            }
+
             return new NoContentResult();
         }
     }

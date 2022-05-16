@@ -36,7 +36,15 @@ public static class Edit
             entity.Duration = TimeSpan.FromMinutes(request.Model.DurationMinutes);
             entity.Genres = request.Model.Genres;
 
-            await _ctx.SaveChangesAsync(cancellationToken);
+            try
+            {
+                await _ctx.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateException)
+            {
+                return new BadRequestResult();
+            }
+
             return new NoContentResult();
         }
     }

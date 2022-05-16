@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Kino.Data;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kino.Controllers.Screenings;
 
@@ -51,7 +52,15 @@ public static class Create
             };
 
             _ctx.Screenings.Add(entity);
-            await _ctx.SaveChangesAsync(cancellationToken);
+
+            try
+            {
+                await _ctx.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateException)
+            {
+                return new BadRequestResult();
+            }
 
             var result = new Result(entity.Id);
 
