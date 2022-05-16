@@ -20,7 +20,7 @@ public class ReviewsController : ControllerBase
         => await _mediator.Send(new Get.Query(), cancellationToken);
 
     [HttpPost]
-    [ProducesResponseType(typeof(Create.Result), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(Create.Result), StatusCodes.Status200OK)]
     public async Task<IActionResult> Create(Create.Model model, CancellationToken cancellationToken)
         => await _mediator.Send(new Create.Command(model), cancellationToken);
 

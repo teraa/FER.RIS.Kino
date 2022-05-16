@@ -44,11 +44,7 @@ public static class Create
 
             var result = new Result(entity.Id);
 
-            return new CreatedAtActionResult(
-                actionName: nameof(Get),
-                controllerName: nameof(Screening),
-                routeValues: result,
-                value: result);
+            return new OkObjectResult(result);
         }
     }
 }
