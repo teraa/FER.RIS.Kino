@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Kino.Controllers.Films;
 
 [ApiController]
-[Route(nameof(Films))]
-public class Controller : ControllerBase
+[Route("[controller]")]
+public class FilmsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public Controller(IMediator mediator)
+    public FilmsController(IMediator mediator)
     {
         _mediator = mediator;
     }
