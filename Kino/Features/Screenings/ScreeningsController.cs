@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Kino.Features.Screenings.Actions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kino.Features.Screenings;

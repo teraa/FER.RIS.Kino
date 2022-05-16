@@ -3,12 +3,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Features.Films;
+namespace Kino.Features.Films.Actions;
 
-public static class Delete
+public static class Edit
 {
     public record Command(
-        int Id
+        int Id,
+        Create.Model Model
     ) : IRequest<IActionResult>;
 
     [UsedImplicitly]
@@ -30,8 +31,18 @@ public static class Delete
             if (entity is null)
                 return new NotFoundResult();
 
-            _ctx.Films.Remove(entity);
-            await _ctx.SaveChangesAsync(cancellationToken);
+            entity.Title = request.Model.Title;
+            entity.Duration = TimeSpan.FromMinutes(request.Model.DurationMinutes);
+            entity.Genres = request.Model.Genres;
+
+            try
+            {
+                await _ctx.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateException)
+            {
+                return new BadRequestResult();
+            }
 
             return new NoContentResult();
         }

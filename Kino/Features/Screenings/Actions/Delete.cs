@@ -3,13 +3,12 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Features.Screenings;
+namespace Kino.Features.Screenings.Actions;
 
-public static class Edit
+public static class Delete
 {
     public record Command(
-        int Id,
-        Create.Model Model
+        int Id
     ) : IRequest<IActionResult>;
 
     [UsedImplicitly]
@@ -31,19 +30,8 @@ public static class Edit
             if (entity is null)
                 return new NotFoundResult();
 
-            entity.FilmId = request.Model.FilmId;
-            entity.HallId = request.Model.HallId;
-            entity.StartAt = request.Model.StartAt;
-            entity.BasePrice = request.Model.BasePrice;
-
-            try
-            {
-                await _ctx.SaveChangesAsync(cancellationToken);
-            }
-            catch (DbUpdateException)
-            {
-                return new BadRequestResult();
-            }
+            _ctx.Screenings.Remove(entity);
+            await _ctx.SaveChangesAsync(cancellationToken);
 
             return new NoContentResult();
         }

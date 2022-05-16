@@ -4,28 +4,31 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Features.Reviews;
+namespace Kino.Features.Screenings.Actions;
 
-public static class Edit
+public static class Create
 {
-    public record Command(
-        int Id,
-        Model Model
-    ) : IRequest<IActionResult>;
+    public record Command(Model Model)
+        : IRequest<IActionResult>;
 
     public record Model(
-        int Score,
-        string Text);
+        int FilmId,
+        int HallId,
+        DateTimeOffset StartAt,
+        decimal BasePrice);
 
     [UsedImplicitly]
     public class ModelValidator : AbstractValidator<Model>
     {
         public ModelValidator()
         {
-            RuleFor(x => x.Score).InclusiveBetween(1, 10);
-            RuleFor(x => x.Text).NotEmpty();
+            RuleFor(x => x.StartAt).NotEmpty();
+            RuleFor(x => x.BasePrice).GreaterThanOrEqualTo(0);
         }
     }
+
+    [PublicAPI]
+    public record Result(int Id);
 
     [UsedImplicitly]
     public class Handler : IRequestHandler<Command, IActionResult>
@@ -39,15 +42,15 @@ public static class Edit
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            var entity = await _ctx.Reviews
-                .Where(x => x.Id == request.Id)
-                .FirstOrDefaultAsync(cancellationToken);
+            var entity = new Screening
+            {
+                FilmId = request.Model.FilmId,
+                HallId = request.Model.HallId,
+                StartAt = request.Model.StartAt,
+                BasePrice = request.Model.BasePrice,
+            };
 
-            if (entity is null)
-                return new NotFoundResult();
-
-            entity.Score = request.Model.Score;
-            entity.Text = request.Model.Text;
+            _ctx.Screenings.Add(entity);
 
             try
             {
@@ -58,7 +61,9 @@ public static class Edit
                 return new BadRequestResult();
             }
 
-            return new NoContentResult();
+            var result = new Result(entity.Id);
+
+            return new OkObjectResult(result);
         }
     }
 }

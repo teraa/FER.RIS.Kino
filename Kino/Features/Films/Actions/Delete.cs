@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Features.Tickets;
+namespace Kino.Features.Films.Actions;
 
 public static class Delete
 {
@@ -23,14 +23,14 @@ public static class Delete
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            var entity = await _ctx.Tickets
+            var entity = await _ctx.Films
                 .Where(x => x.Id == request.Id)
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (entity is null)
                 return new NotFoundResult();
 
-            _ctx.Tickets.Remove(entity);
+            _ctx.Films.Remove(entity);
             await _ctx.SaveChangesAsync(cancellationToken);
 
             return new NoContentResult();

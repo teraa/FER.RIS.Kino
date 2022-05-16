@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Features.Films;
+namespace Kino.Features.Screenings.Actions;
 
 public static class Edit
 {
@@ -24,16 +24,17 @@ public static class Edit
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            var entity = await _ctx.Films
+            var entity = await _ctx.Screenings
                 .Where(x => x.Id == request.Id)
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (entity is null)
                 return new NotFoundResult();
 
-            entity.Title = request.Model.Title;
-            entity.Duration = TimeSpan.FromMinutes(request.Model.DurationMinutes);
-            entity.Genres = request.Model.Genres;
+            entity.FilmId = request.Model.FilmId;
+            entity.HallId = request.Model.HallId;
+            entity.StartAt = request.Model.StartAt;
+            entity.BasePrice = request.Model.BasePrice;
 
             try
             {

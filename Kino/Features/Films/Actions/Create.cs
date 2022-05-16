@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Features.Screenings;
+namespace Kino.Features.Films.Actions;
 
 public static class Create
 {
@@ -12,18 +12,18 @@ public static class Create
         : IRequest<IActionResult>;
 
     public record Model(
-        int FilmId,
-        int HallId,
-        DateTimeOffset StartAt,
-        decimal BasePrice);
+        string Title,
+        int DurationMinutes,
+        string[] Genres);
 
     [UsedImplicitly]
     public class ModelValidator : AbstractValidator<Model>
     {
         public ModelValidator()
         {
-            RuleFor(x => x.StartAt).NotEmpty();
-            RuleFor(x => x.BasePrice).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.Title).NotEmpty();
+            RuleFor(x => x.DurationMinutes).GreaterThan(0);
+            RuleForEach(x => x.Genres).NotEmpty();
         }
     }
 
@@ -42,15 +42,14 @@ public static class Create
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            var entity = new Screening
+            var entity = new Film
             {
-                FilmId = request.Model.FilmId,
-                HallId = request.Model.HallId,
-                StartAt = request.Model.StartAt,
-                BasePrice = request.Model.BasePrice,
+                Title = request.Model.Title,
+                Duration = TimeSpan.FromMinutes(request.Model.DurationMinutes),
+                Genres = request.Model.Genres,
             };
 
-            _ctx.Screenings.Add(entity);
+            _ctx.Films.Add(entity);
 
             try
             {
