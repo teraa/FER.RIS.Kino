@@ -9,14 +9,8 @@ internal class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<KinoDbCo
 {
     public KinoDbContext CreateDbContext(string[] args)
     {
-        string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!;
-
-        var config = new ConfigurationBuilder()
-           .AddJsonFile("appsettings.json", optional: false)
-           .AddJsonFile($"appsettings.{environment}.json", optional: false)
-           .Build();
-
-        var dbOptions = config.GetOptions<DbOptions>();
+        var builder = WebApplication.CreateBuilder(args);
+        var dbOptions = builder.Configuration.GetOptions<DbOptions>();
 
         var optionsBuilder = new DbContextOptionsBuilder<KinoDbContext>()
             .UseNpgsql(dbOptions.ConnectionString);
