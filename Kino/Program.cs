@@ -114,6 +114,13 @@ if (app.Environment.IsDevelopment())
     {
         setup.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
     });
+
+    app.UseReDoc(setup =>
+    {
+        setup.RoutePrefix = "redoc";
+        setup.ExpandResponses("200,201");
+        setup.NativeScrollbars();
+    });
 }
 
 app.UseAuthentication();

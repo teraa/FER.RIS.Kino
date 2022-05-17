@@ -6,6 +6,7 @@ namespace Kino.Features.Reviews;
 
 [ApiController]
 [Route("[controller]")]
+[Produces("application/json")]
 public class ReviewsController : ControllerBase
 {
     private readonly IMediator _mediator;

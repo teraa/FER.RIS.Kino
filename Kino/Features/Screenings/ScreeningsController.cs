@@ -6,6 +6,7 @@ namespace Kino.Features.Screenings;
 
 [ApiController]
 [Route("[controller]")]
+[Produces("application/json")]
 public class ScreeningsController : ControllerBase
 {
     private readonly IMediator _mediator;

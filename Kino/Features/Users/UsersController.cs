@@ -6,6 +6,7 @@ namespace Kino.Features.Users;
 
 [ApiController]
 [Route("[controller]")]
+[Produces("application/json")]
 public class UsersController : ControllerBase
 {
     private readonly IMediator _mediator;

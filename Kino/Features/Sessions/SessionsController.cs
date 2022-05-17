@@ -6,6 +6,7 @@ namespace Kino.Features.Sessions;
 
 [ApiController]
 [Route("[controller]")]
+[Produces("application/json")]
 public class SessionsController : ControllerBase
 {
     private readonly IMediator _mediator;

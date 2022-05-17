@@ -6,6 +6,7 @@ namespace Kino.Features.Tickets;
 
 [ApiController]
 [Route("[controller]")]
+[Produces("application/json")]
 public class TicketsController : ControllerBase
 {
     private readonly IMediator _mediator;

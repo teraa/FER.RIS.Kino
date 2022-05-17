@@ -6,6 +6,7 @@ namespace Kino.Features.Films;
 
 [ApiController]
 [Route("[controller]")]
+[Produces("application/json")]
 public class FilmsController : ControllerBase
 {
     private readonly IMediator _mediator;
