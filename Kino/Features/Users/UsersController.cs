@@ -1,4 +1,4 @@
-﻿using Kino.Features.Films.Actions;
+﻿using Kino.Features.Users.Actions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
