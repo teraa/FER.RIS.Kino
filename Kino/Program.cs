@@ -54,6 +54,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     options.CustomSchemaIds(type => type.FullName);
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{nameof(Kino)}.xml"));
 
     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {
