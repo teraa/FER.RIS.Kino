@@ -92,6 +92,7 @@ builder.Services
         });
     })
     .AddAsyncInitializer<MigrationInitializer>()
+    .AddAsyncInitializer<DbInitializer>()
     .AddOptionsWithSection<JwtOptions>(builder.Configuration)
     .AddSingleton<TokenService>()
     .AddSingleton<PasswordService>()
