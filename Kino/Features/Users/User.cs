@@ -1,10 +1,10 @@
-using Kino.Features;
 using Kino.Features.Reviews;
+using Kino.Features.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 #pragma warning disable CS8618
 
-namespace Kino.Features
+namespace Kino.Features.Users
 {
     public class User
     {

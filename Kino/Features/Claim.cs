@@ -1,4 +1,5 @@
 using Kino.Features;
+using Kino.Features.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 #pragma warning disable CS8618

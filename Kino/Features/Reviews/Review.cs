@@ -1,5 +1,6 @@
 using Kino.Features.Films;
 using Kino.Features.Reviews;
+using Kino.Features.Users;
 using Microsoft.EntityFrameworkCore;
 #pragma warning disable CS8618
 
