@@ -45,7 +45,7 @@ public class ScreeningsController : ControllerBase
     /// <summary>
     /// Delete Screening
     /// </summary>
-    /// <param name="id">Screening</param>
+    /// <param name="id">Screening ID</param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
