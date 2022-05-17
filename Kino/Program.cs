@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using KinoDbContext = Kino.KinoDbContext;
 
 Serilog.Debugging.SelfLog.Enable(x
     => Console.WriteLine($"SERILOG: {x}"));

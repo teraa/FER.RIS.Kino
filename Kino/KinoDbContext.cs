@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+#pragma warning disable CS8618
 
 namespace Kino;
 
-#pragma warning disable CS8618
 public partial class KinoDbContext : DbContext
 {
     public KinoDbContext(DbContextOptions options)
