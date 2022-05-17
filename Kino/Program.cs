@@ -48,6 +48,7 @@ builder.Services
     .AddAsyncInitializer<MigrationInitializer>()
     .AddOptionsWithSection<JwtOptions>(builder.Configuration)
     .AddSingleton<TokenService>()
+    .AddSingleton<PasswordService>()
     .AddMediatR(typeof(Program))
     .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining(typeof(Program)));
 
