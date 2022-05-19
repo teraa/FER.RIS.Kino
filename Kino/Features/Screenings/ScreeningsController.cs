@@ -57,4 +57,15 @@ public class ScreeningsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         => await _mediator.Send(new Delete.Command(id), cancellationToken);
+
+    /// <summary>
+    /// Get Screening
+    /// </summary>
+    /// <param name="id">Screening ID</param>
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(Get.Result), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [AllowAnonymous]
+    public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
+        => await _mediator.Send(new Get.Query(id), cancellationToken);
 }
