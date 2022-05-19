@@ -1,3 +1,5 @@
+using System.Security.Claims;
+
 namespace Kino;
 
 public static class Extensions
@@ -24,4 +26,7 @@ public static class Extensions
 
         return configuration.GetRequiredSection(name);
     }
+
+    public static int GetUserId(this HttpContext context)
+        => int.Parse(context.User.FindFirstValue(ClaimTypes.NameIdentifier));
 }

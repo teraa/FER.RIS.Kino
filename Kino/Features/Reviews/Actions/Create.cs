@@ -8,11 +8,12 @@ namespace Kino.Features.Reviews.Actions;
 
 public static class Create
 {
-    public record Command(Model Model)
-        : IRequest<IActionResult>;
+    public record Command(
+        int UserId,
+        Model Model
+    ) : IRequest<IActionResult>;
 
     public record Model(
-        int UserId, // TODO: from session
         int FilmId,
         int Score,
         string Text);
@@ -44,7 +45,7 @@ public static class Create
         {
             var entity = new Review
             {
-                UserId = request.Model.UserId,
+                UserId = request.UserId,
                 FilmId = request.Model.FilmId,
                 Score = request.Model.Score,
                 Text = request.Model.Text,

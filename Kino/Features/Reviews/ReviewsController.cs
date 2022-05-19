@@ -34,7 +34,7 @@ public class ReviewsController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(Create.Result), StatusCodes.Status200OK)]
     public async Task<IActionResult> Create(Create.Model model, CancellationToken cancellationToken)
-        => await _mediator.Send(new Create.Command(model), cancellationToken);
+        => await _mediator.Send(new Create.Command(HttpContext.GetUserId(), model), cancellationToken);
 
     /// <summary>
     /// Edit Review
