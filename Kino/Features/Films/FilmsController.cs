@@ -51,4 +51,14 @@ public class FilmsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         => await _mediator.Send(new Delete.Command(id), cancellationToken);
+
+    /// <summary>
+    /// Get Film Details
+    /// </summary>
+    /// <param name="id">Film ID</param>
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(Details.Result), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetDetails(int id, CancellationToken cancellationToken)
+        => await _mediator.Send(new Details.Query(id), cancellationToken);
 }
