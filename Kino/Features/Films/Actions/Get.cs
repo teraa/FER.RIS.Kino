@@ -16,6 +16,8 @@ public static class Get
         int DurationMinutes,
         string[] Genres,
         double AverageScore,
+        string Description,
+        string ImageUrl,
         IReadOnlyList<ReviewResult> Reviews,
         IReadOnlyList<ScreeningResult> Screenings);
 
@@ -56,6 +58,8 @@ public static class Get
                     (int) x.Duration.TotalMinutes,
                     x.Genres,
                     Math.Round(x.Reviews.Select(r => r.Score).DefaultIfEmpty().Average(), 1),
+                    x.Description,
+                    x.ImageUrl,
                     x.Reviews.Select(r => new ReviewResult(r.Id, r.UserId, r.User.Name, r.Score, r.Text, r.CreatedAt)).ToList(),
                     x.Screenings.Select(s => new ScreeningResult(s.Id, s.HallId, s.StartAt, s.BasePrice)).ToList()))
                 .FirstOrDefaultAsync(cancellationToken);

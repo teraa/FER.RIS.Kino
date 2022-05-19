@@ -3,6 +3,7 @@ using System;
 using Kino;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kino.Migrations
 {
     [DbContext(typeof(KinoDbContext))]
-    partial class KinoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220519152334_Add_Film_DescriptionAndImageUrl")]
+    partial class Add_Film_DescriptionAndImageUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

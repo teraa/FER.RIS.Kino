@@ -109,7 +109,9 @@ public class DbInitializer : IAsyncInitializer
                 Title = "The Batman",
                 Duration = new TimeSpan(2, 56, 0),
                 Genres = new[] {"akcija", "drama"},
-                Screenings = new Screening[]
+                Description = "The Batman is a 2022 American superhero film based on the DC Comics character Batman.",
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/f/ff/The_Batman_%28film%29_poster.jpg/220px-The_Batman_%28film%29_poster.jpg",
+                Screenings = new List<Screening>
                 {
                     new()
                     {
@@ -124,14 +126,18 @@ public class DbInitializer : IAsyncInitializer
                 Title = "Sonic the Hedgehog 2",
                 Duration = new TimeSpan(2, 2, 0),
                 Genres = new[] {"avantura", "obiteljski"},
-                Screenings = new Screening[] { },
+                Description = "Sonic the Hedgehog 2[b] is a 2022 action-adventure comedy film based on the video game franchise published by Sega, and the sequel to Sonic the Hedgehog (2020).",
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/en/3/3e/Sonic_the_Hedgehog_2_film_poster.jpg",
+                Screenings = new List<Screening> { },
             },
             new()
             {
                 Title = "Fantastic Beasts: The Secrets of Dumbledore",
                 Duration = new TimeSpan(2, 22, 0),
                 Genres = new[] {"akcija", "avantura"},
-                Screenings = new Screening[] { },
+                Description = "Fantastic Beasts: The Secrets of Dumbledore is a 2022 fantasy film directed by David Yates from a screenplay by J. K. Rowling and Steve Kloves.",
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/3/34/Fantastic_Beasts-_The_Secrets_of_Dumbledore.png/220px-Fantastic_Beasts-_The_Secrets_of_Dumbledore.png",
+                Screenings = new List<Screening> { },
             },
         };
 

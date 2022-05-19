@@ -34,6 +34,8 @@ public static class Edit
             entity.Title = request.Model.Title;
             entity.Duration = TimeSpan.FromMinutes(request.Model.DurationMinutes);
             entity.Genres = request.Model.Genres;
+            entity.Description = request.Model.Description;
+            entity.ImageUrl = request.Model.ImageUrl;
 
             try
             {

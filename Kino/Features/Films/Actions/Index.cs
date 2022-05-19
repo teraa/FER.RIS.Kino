@@ -14,7 +14,9 @@ public static class Index
         int Id,
         string Title,
         int DurationMinutes,
-        string[] Genres);
+        string[] Genres,
+        string Description,
+        string ImageUrl);
 
     [UsedImplicitly]
     public class Handler : IRequestHandler<Query, IActionResult>
@@ -30,7 +32,12 @@ public static class Index
         {
             var results = await _ctx.Films
                 .OrderBy(x => x.Id)
-                .Select(x => new Result(x.Id, x.Title, (int)x.Duration.TotalMinutes, x.Genres))
+                .Select(x => new Result(x.Id,
+                    x.Title,
+                    (int) x.Duration.TotalMinutes,
+                    x.Genres,
+                    x.Description,
+                    x.ImageUrl))
                 .ToListAsync(cancellationToken);
 
             return new OkObjectResult(results);

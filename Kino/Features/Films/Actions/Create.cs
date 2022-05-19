@@ -14,7 +14,9 @@ public static class Create
     public record Model(
         string Title,
         int DurationMinutes,
-        string[] Genres);
+        string[] Genres,
+        string Description,
+        string ImageUrl);
 
     [UsedImplicitly]
     public class ModelValidator : AbstractValidator<Model>
@@ -24,6 +26,8 @@ public static class Create
             RuleFor(x => x.Title).NotEmpty();
             RuleFor(x => x.DurationMinutes).GreaterThan(0);
             RuleForEach(x => x.Genres).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty();
+            RuleFor(x => x.ImageUrl).NotEmpty();
         }
     }
 
@@ -47,6 +51,8 @@ public static class Create
                 Title = request.Model.Title,
                 Duration = TimeSpan.FromMinutes(request.Model.DurationMinutes),
                 Genres = request.Model.Genres,
+                Description = request.Model.Description,
+                ImageUrl = request.Model.ImageUrl,
             };
 
             _ctx.Films.Add(entity);
