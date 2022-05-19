@@ -29,7 +29,8 @@ public static class Create
     [PublicAPI]
     public record Result(
         int Id,
-        string Token);
+        string Token,
+        bool IsAdmin);
 
     [UsedImplicitly]
     public class Handler : IRequestHandler<Command, IActionResult>
@@ -54,6 +55,7 @@ public static class Create
 
             var entity = await _ctx.Users
                 .AsNoTracking()
+                .Include(x => x.Claims)
                 .Where(x => x.Name == normalizedUsername)
                 .FirstOrDefaultAsync(cancellationToken);
 
@@ -62,7 +64,7 @@ public static class Create
 
             var token = _tokenService.CreateToken(entity.Id);
 
-            var result = new Result(entity.Id, token);
+            var result = new Result(entity.Id, token, entity.Claims.Any(x => x.Type == "admin"));
 
             return new OkObjectResult(result);
         }
