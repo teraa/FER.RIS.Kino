@@ -18,6 +18,7 @@ public static class Index
         int FilmId,
         int HallId,
         DateTimeOffset StartAt,
+        DateTimeOffset EndAt,
         decimal BasePrice);
 
     [UsedImplicitly]
@@ -51,7 +52,12 @@ public static class Index
 
             var results = await query
                 .OrderBy(x => x.StartAt)
-                .Select(x => new Result(x.Id, x.FilmId, x.HallId, x.StartAt, x.BasePrice))
+                .Select(x => new Result(x.Id,
+                    x.FilmId,
+                    x.HallId,
+                    x.StartAt,
+                    x.StartAt + x.Film.Duration,
+                    x.BasePrice))
                 .ToListAsync(cancellationToken);
 
             return new OkObjectResult(results);
