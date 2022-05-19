@@ -3,17 +3,18 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kino.Features.Tickets.Actions;
+namespace Kino.Features.Films.Actions;
 
-public static class Get
+public static class Index
 {
     public record Query : IRequest<IActionResult>;
 
     [PublicAPI]
     public record Result(
         int Id,
-        int SeatId,
-        int ScreeningId);
+        string Title,
+        int DurationMinutes,
+        string[] Genres);
 
     [UsedImplicitly]
     public class Handler : IRequestHandler<Query, IActionResult>
@@ -27,9 +28,9 @@ public static class Get
 
         public async Task<IActionResult> Handle(Query request, CancellationToken cancellationToken)
         {
-            var results = await _ctx.Tickets
+            var results = await _ctx.Films
                 .OrderBy(x => x.Id)
-                .Select(x => new Result(x.Id, x.SeatId, x.ScreeningId))
+                .Select(x => new Result(x.Id, x.Title, (int)x.Duration.TotalMinutes, x.Genres))
                 .ToListAsync(cancellationToken);
 
             return new OkObjectResult(results);

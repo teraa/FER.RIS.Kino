@@ -1,6 +1,7 @@
 ﻿using Kino.Features.Screenings.Actions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Index = Kino.Features.Screenings.Actions.Index;
 
 namespace Kino.Features.Screenings;
 
@@ -17,13 +18,13 @@ public class ScreeningsController : ControllerBase
     }
 
     /// <summary>
-    /// Get Screenings
+    /// Get All Screenings
     /// </summary>
     /// <param name="date">Date to filter by (optional)</param>
     [HttpGet]
-    [ProducesResponseType(typeof(Get.Result), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get(DateTimeOffset? date, CancellationToken cancellationToken)
-        => await _mediator.Send(new Get.Query(date), cancellationToken);
+    [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Index(DateTimeOffset? date, CancellationToken cancellationToken)
+        => await _mediator.Send(new Index.Query(date), cancellationToken);
 
     /// <summary>
     /// Create Screening

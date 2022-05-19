@@ -1,6 +1,7 @@
 ﻿using Kino.Features.Films.Actions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Index = Kino.Features.Films.Actions.Index;
 
 namespace Kino.Features.Films;
 
@@ -20,9 +21,9 @@ public class FilmsController : ControllerBase
     /// Get All Films
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(Get.Result), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get(CancellationToken cancellationToken)
-        => await _mediator.Send(new Get.Query(), cancellationToken);
+    [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Index(CancellationToken cancellationToken)
+        => await _mediator.Send(new Index.Query(), cancellationToken);
 
     /// <summary>
     /// Create Film
@@ -53,12 +54,12 @@ public class FilmsController : ControllerBase
         => await _mediator.Send(new Delete.Command(id), cancellationToken);
 
     /// <summary>
-    /// Get Film Details
+    /// Get Film
     /// </summary>
     /// <param name="id">Film ID</param>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(Details.Result), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetDetails(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
         => await _mediator.Send(new Details.Query(id), cancellationToken);
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kino.Features.Screenings.Actions;
 
-public static class Get
+public static class Index
 {
     public record Query(DateTimeOffset? Date) : IRequest<IActionResult>;
 

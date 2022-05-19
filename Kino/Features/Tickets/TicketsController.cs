@@ -1,6 +1,7 @@
 ﻿using Kino.Features.Tickets.Actions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Index = Kino.Features.Tickets.Actions.Index;
 
 namespace Kino.Features.Tickets;
 
@@ -20,9 +21,9 @@ public class TicketsController : ControllerBase
     /// Get All Tickets
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(Get.Result), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get(CancellationToken cancellationToken)
-        => await _mediator.Send(new Get.Query(), cancellationToken);
+    [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Index(CancellationToken cancellationToken)
+        => await _mediator.Send(new Index.Query(), cancellationToken);
 
     /// <summary>
     /// Create Ticket
