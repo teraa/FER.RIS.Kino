@@ -55,7 +55,7 @@ public static class Get
                     x.Title,
                     (int) x.Duration.TotalMinutes,
                     x.Genres,
-                    x.Reviews.Select(r => r.Score).DefaultIfEmpty().Average(),
+                    Math.Round(x.Reviews.Select(r => r.Score).DefaultIfEmpty().Average(), 1),
                     x.Reviews.Select(r => new ReviewResult(r.Id, r.UserId, r.User.Name, r.Score, r.Text, r.CreatedAt)).ToList(),
                     x.Screenings.Select(s => new ScreeningResult(s.Id, s.HallId, s.StartAt, s.BasePrice)).ToList()))
                 .FirstOrDefaultAsync(cancellationToken);
