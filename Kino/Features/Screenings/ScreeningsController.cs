@@ -17,12 +17,13 @@ public class ScreeningsController : ControllerBase
     }
 
     /// <summary>
-    /// Get All Screenings
+    /// Get Screenings
     /// </summary>
+    /// <param name="date">Date to filter by (optional)</param>
     [HttpGet]
     [ProducesResponseType(typeof(Get.Result), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get(CancellationToken cancellationToken)
-        => await _mediator.Send(new Get.Query(), cancellationToken);
+    public async Task<IActionResult> Get(DateTimeOffset? date, CancellationToken cancellationToken)
+        => await _mediator.Send(new Get.Query(date), cancellationToken);
 
     /// <summary>
     /// Create Screening

@@ -7,7 +7,7 @@ namespace Kino.Features.Screenings.Actions;
 
 public static class Get
 {
-    public record Query : IRequest<IActionResult>;
+    public record Query(DateTimeOffset? Date) : IRequest<IActionResult>;
 
     [PublicAPI]
     public record Result(
@@ -29,8 +29,19 @@ public static class Get
 
         public async Task<IActionResult> Handle(Query request, CancellationToken cancellationToken)
         {
-            var results = await _ctx.Screenings
-                .OrderBy(x => x.Id)
+            var query = _ctx.Screenings
+                .AsNoTracking();
+
+            if (request.Date is { } date)
+            {
+                query = query
+                    .Where(x => x.StartAt.Day == date.Day)
+                    .Where(x => x.StartAt.Month == date.Month)
+                    .Where(x => x.StartAt.Year == date.Year);
+            }
+
+            var results = await query
+                .OrderBy(x => x.StartAt)
                 .Select(x => new Result(x.Id, x.FilmId, x.HallId, x.StartAt, x.BasePrice))
                 .ToListAsync(cancellationToken);
 
