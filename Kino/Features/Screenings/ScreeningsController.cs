@@ -23,11 +23,12 @@ public class ScreeningsController : ControllerBase
     /// Get All Screenings
     /// </summary>
     /// <param name="date">Date to filter by (optional)</param>
+    /// <param name="hallId">Hall ID to filter by (optional)</param>
     [HttpGet]
     [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
     [AllowAnonymous]
-    public async Task<IActionResult> Index(DateTimeOffset? date, CancellationToken cancellationToken)
-        => await _mediator.Send(new Index.Query(date), cancellationToken);
+    public async Task<IActionResult> Index(DateTimeOffset? date, int? hallId, CancellationToken cancellationToken)
+        => await _mediator.Send(new Index.Query(date, hallId), cancellationToken);
 
     /// <summary>
     /// Create Screening

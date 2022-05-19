@@ -7,7 +7,10 @@ namespace Kino.Features.Screenings.Actions;
 
 public static class Index
 {
-    public record Query(DateTimeOffset? Date) : IRequest<IActionResult>;
+    public record Query(
+        DateTimeOffset? Date,
+        int? HallId
+    ) : IRequest<IActionResult>;
 
     [PublicAPI]
     public record Result(
@@ -38,6 +41,12 @@ public static class Index
                     .Where(x => x.StartAt.Day == date.Day)
                     .Where(x => x.StartAt.Month == date.Month)
                     .Where(x => x.StartAt.Year == date.Year);
+            }
+
+            if (request.HallId.HasValue)
+            {
+                query = query
+                    .Where(x => x.HallId == request.HallId);
             }
 
             var results = await query
