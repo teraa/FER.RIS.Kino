@@ -1,5 +1,6 @@
 ﻿using Kino.Features.Screenings.Actions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Index = Kino.Features.Screenings.Actions.Index;
 
@@ -8,6 +9,7 @@ namespace Kino.Features.Screenings;
 [ApiController]
 [Route("[controller]")]
 [Produces("application/json")]
+[Authorize]
 public class ScreeningsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -23,6 +25,7 @@ public class ScreeningsController : ControllerBase
     /// <param name="date">Date to filter by (optional)</param>
     [HttpGet]
     [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
+    [AllowAnonymous]
     public async Task<IActionResult> Index(DateTimeOffset? date, CancellationToken cancellationToken)
         => await _mediator.Send(new Index.Query(date), cancellationToken);
 

@@ -1,5 +1,6 @@
 ﻿using Kino.Features.Reviews.Actions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Index = Kino.Features.Reviews.Actions.Index;
 
@@ -8,6 +9,7 @@ namespace Kino.Features.Reviews;
 [ApiController]
 [Route("[controller]")]
 [Produces("application/json")]
+[Authorize]
 public class ReviewsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -22,6 +24,7 @@ public class ReviewsController : ControllerBase
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
+    [AllowAnonymous]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
         => await _mediator.Send(new Index.Query(), cancellationToken);
 

@@ -1,5 +1,6 @@
 ﻿using Kino.Features.Sessions.Actions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kino.Features.Sessions;
@@ -7,6 +8,7 @@ namespace Kino.Features.Sessions;
 [ApiController]
 [Route("[controller]")]
 [Produces("application/json")]
+[AllowAnonymous]
 public class SessionsController : ControllerBase
 {
     private readonly IMediator _mediator;

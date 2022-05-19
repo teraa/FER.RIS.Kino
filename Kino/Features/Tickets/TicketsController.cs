@@ -1,5 +1,6 @@
 ﻿using Kino.Features.Tickets.Actions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Index = Kino.Features.Tickets.Actions.Index;
 
@@ -8,6 +9,7 @@ namespace Kino.Features.Tickets;
 [ApiController]
 [Route("[controller]")]
 [Produces("application/json")]
+[Authorize]
 public class TicketsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -22,6 +24,7 @@ public class TicketsController : ControllerBase
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
+    [AllowAnonymous]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
         => await _mediator.Send(new Index.Query(), cancellationToken);
 
@@ -30,6 +33,7 @@ public class TicketsController : ControllerBase
     /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(Create.Result), StatusCodes.Status200OK)]
+    [AllowAnonymous]
     public async Task<IActionResult> Create(Create.Model model, CancellationToken cancellationToken)
         => await _mediator.Send(new Create.Command(model), cancellationToken);
 

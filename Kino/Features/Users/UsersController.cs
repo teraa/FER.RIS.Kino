@@ -1,5 +1,6 @@
 ﻿using Kino.Features.Users.Actions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Index = Kino.Features.Users.Actions.Index;
 
@@ -8,6 +9,7 @@ namespace Kino.Features.Users;
 [ApiController]
 [Route("[controller]")]
 [Produces("application/json")]
+[Authorize]
 public class UsersController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -31,6 +33,7 @@ public class UsersController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(Create.Result), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
+    [AllowAnonymous]
     public async Task<IActionResult> Create(Create.Model model, CancellationToken cancellationToken)
         => await _mediator.Send(new Create.Command(model), cancellationToken);
 
