@@ -62,9 +62,11 @@ public static class Create
             if (entity is null || !_passwordService.Test(request.Model.Password, entity.PasswordHash, entity.PasswordSalt))
                 return new BadRequestResult();
 
-            var token = _tokenService.CreateToken(entity.Id);
+            bool isAdmin = entity.Claims.Any(x => x.Type == AppClaim.Admin);
 
-            var result = new Result(entity.Id, token, entity.Claims.Any(x => x.Type == "admin"));
+            var token = _tokenService.CreateToken(entity.Id, isAdmin);
+
+            var result = new Result(entity.Id, token, isAdmin);
 
             return new OkObjectResult(result);
         }

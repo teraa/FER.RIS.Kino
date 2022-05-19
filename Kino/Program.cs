@@ -47,6 +47,15 @@ builder.Services
         };
     });
 
+builder.Services
+    .AddAuthorization(options =>
+    {
+        options.AddPolicy(AppPolicy.Admin, policy =>
+        {
+            policy.RequireClaim(AppClaim.Admin, true.ToString());
+        });
+    });
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

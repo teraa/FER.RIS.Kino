@@ -79,7 +79,7 @@ public static class Create
                 return new BadRequestResult();
             }
 
-            var token = _tokenService.CreateToken(entity.Id);
+            var token = _tokenService.CreateToken(entity.Id, false);
 
             var result = new Result(entity.Id, token);
 

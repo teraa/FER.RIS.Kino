@@ -9,14 +9,15 @@ public class TestController : ControllerBase
 {
     [HttpGet]
     public IActionResult Get()
-    {
-        return Ok("Hello World!");
-    }
+        => Ok("Hello World!");
 
     [HttpGet("Auth")]
     [Authorize]
     public IActionResult GetAuthenticated()
-    {
-        return Ok("Authenticated");
-    }
+        => Ok("Authenticated");
+
+    [HttpGet("Admin")]
+    [Authorize(AppPolicy.Admin)]
+    public IActionResult GetAdmin()
+        => Ok("Admin");
 }

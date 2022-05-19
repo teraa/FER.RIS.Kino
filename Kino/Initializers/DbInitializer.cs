@@ -33,6 +33,7 @@ public class DbInitializer : IAsyncInitializer
             return;
 
         const string username = "admin";
+        const string password = "admin";
 
         bool exists = await _ctx.Users
             .Where(x => x.Name == username)
@@ -41,18 +42,18 @@ public class DbInitializer : IAsyncInitializer
         if (exists)
             return;
 
-        var password = _passwordService.Hash(password: username);
+        var (hash, salt) = _passwordService.Hash(password);
 
         var user = new User
         {
             Name = username,
-            PasswordHash = password.hash,
-            PasswordSalt = password.salt,
+            PasswordHash = hash,
+            PasswordSalt = salt,
             Claims = new List<Claim>
             {
                 new()
                 {
-                    Type = "admin",
+                    Type = AppClaim.Admin,
                 }
             }
         };

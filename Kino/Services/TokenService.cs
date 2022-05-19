@@ -19,14 +19,19 @@ public class TokenService
         _signingKey = new SymmetricSecurityKey(bytes);
     }
 
-    public string CreateToken(int userId)
+    public string CreateToken(int userId, bool isAdmin)
     {
+        var claims = new List<Claim>
+        {
+            new(JwtRegisteredClaimNames.Sub, userId.ToString()),
+        };
+
+        if (isAdmin)
+            claims.Add(new Claim(AppClaim.Admin, true.ToString()));
+
         SecurityTokenDescriptor tokenDescriptor = new()
         {
-            Subject = new ClaimsIdentity(new Claim[]
-            {
-                new(JwtRegisteredClaimNames.Sub, userId.ToString()),
-            }),
+            Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow + _jwtOptions.TokenLifetime,
             SigningCredentials = new SigningCredentials(
                 key: _signingKey,
