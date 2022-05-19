@@ -24,7 +24,6 @@ services:
 
 ## Update
 ```sh
-docker-compose stop
 docker-compose pull server
 docker-compose up -d
 ```
