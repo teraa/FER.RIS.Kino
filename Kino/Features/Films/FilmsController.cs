@@ -58,8 +58,8 @@ public class FilmsController : ControllerBase
     /// </summary>
     /// <param name="id">Film ID</param>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(Details.Result), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Get.Result), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
-        => await _mediator.Send(new Details.Query(id), cancellationToken);
+        => await _mediator.Send(new Get.Query(id), cancellationToken);
 }

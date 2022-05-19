@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kino.Features.Films.Actions;
 
-public static class Details
+public static class Get
 {
     public record Query(int Id) : IRequest<IActionResult>;
 
