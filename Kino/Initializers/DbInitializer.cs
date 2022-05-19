@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using Kino.Features;
 using Kino.Features.Films;
+using Kino.Features.Halls;
 using Kino.Features.Screenings;
 using Kino.Features.Users;
 using Kino.Services;

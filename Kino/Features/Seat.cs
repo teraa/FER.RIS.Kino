@@ -1,4 +1,5 @@
 using Kino.Features;
+using Kino.Features.Halls;
 using Kino.Features.Tickets;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

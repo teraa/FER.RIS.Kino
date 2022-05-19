@@ -1,9 +1,10 @@
-﻿using Kino.Features;
+﻿using Kino.Features.Halls;
 using Kino.Features.Screenings;
 using Microsoft.EntityFrameworkCore;
+
 #pragma warning disable CS8618
 
-namespace Kino.Features
+namespace Kino.Features.Halls
 {
     public class Hall
     {
