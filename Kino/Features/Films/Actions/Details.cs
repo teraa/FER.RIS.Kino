@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Kino.Features.Reviews;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +23,7 @@ public static class Details
     public record ReviewResult(
         int Id,
         int UserId,
+        string UserName,
         int Score,
         string Text,
         DateTimeOffset CreatedAt);
@@ -56,7 +56,7 @@ public static class Details
                     (int) x.Duration.TotalMinutes,
                     x.Genres,
                     x.Reviews.Select(r => r.Score).DefaultIfEmpty().Average(),
-                    x.Reviews.Select(r => new ReviewResult(r.Id, r.UserId, r.Score, r.Text, r.CreatedAt)).ToList(),
+                    x.Reviews.Select(r => new ReviewResult(r.Id, r.UserId, r.User.Name, r.Score, r.Text, r.CreatedAt)).ToList(),
                     x.Screenings.Select(s => new ScreeningResult(s.Id, s.HallId, s.StartAt, s.BasePrice)).ToList()))
                 .FirstOrDefaultAsync(cancellationToken);
 
