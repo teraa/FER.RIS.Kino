@@ -22,11 +22,12 @@ public class FilmsController : ControllerBase
     /// <summary>
     /// Get All Films
     /// </summary>
+    /// <param name="screeningDate">Filter by screening date (optional)</param>
     [HttpGet]
     [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
     [AllowAnonymous]
-    public async Task<IActionResult> Index(CancellationToken cancellationToken)
-        => await _mediator.Send(new Index.Query(), cancellationToken);
+    public async Task<IActionResult> Index(DateTimeOffset? screeningDate, CancellationToken cancellationToken)
+        => await _mediator.Send(new Index.Query(screeningDate), cancellationToken);
 
     /// <summary>
     /// Create Film
