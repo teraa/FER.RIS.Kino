@@ -36,12 +36,14 @@ public static class Index
             var query = _ctx.Screenings
                 .AsNoTracking();
 
-            if (request.Date is { } date)
+            if (request.Date.HasValue)
             {
+                var start = request.Date.Value.ToUniversalTime();
+                var end = start.AddDays(1);
+
                 query = query
-                    .Where(x => x.StartAt.Day == date.Day)
-                    .Where(x => x.StartAt.Month == date.Month)
-                    .Where(x => x.StartAt.Year == date.Year);
+                    .Where(x => x.StartAt >= start)
+                    .Where(x => x.StartAt < end);
             }
 
             if (request.HallId.HasValue)
