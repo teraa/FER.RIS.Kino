@@ -17,13 +17,17 @@ public static class Get
         DateTimeOffset StartAt,
         DateTimeOffset EndAt,
         decimal BasePrice,
+        IReadOnlyList<SeatsRowResult> SeatRows);
+
+    [PublicAPI]
+    public record SeatsRowResult(
+        int Row,
         IReadOnlyList<SeatResult> Seats);
 
     [PublicAPI]
     public record SeatResult(
         int Id,
         int Number,
-        int Row,
         string Type,
         decimal PriceCoefficient,
         bool IsAvailable);
@@ -49,13 +53,20 @@ public static class Get
                     x.StartAt,
                     x.StartAt + x.Film.Duration,
                     x.BasePrice,
-                    x.Hall.Seats.Select(s => new SeatResult(
-                        s.Id,
-                        s.Number,
-                        s.Row,
-                        s.Type,
-                        s.PriceCoefficient,
-                        s.Tickets.All(t => t.ScreeningId != request.Id)))
+                    x.Hall.Seats
+                        .GroupBy(s => s.Row)
+                        .Select(grouping => new SeatsRowResult(
+                            grouping.Key,
+                            grouping
+                                .OrderBy(s => s.Number)
+                                .Select(s => new SeatResult(
+                                    s.Id,
+                                    s.Number,
+                                    s.Type,
+                                    s.PriceCoefficient,
+                                    s.Tickets.All(t => t.ScreeningId != request.Id)))
+                                .ToList())
+                        )
                         .ToList()))
                 .FirstOrDefaultAsync(cancellationToken);
 
