@@ -13,7 +13,9 @@ public static class Get
     public record Result(
         int Id,
         int FilmId,
+        string FilmTitle,
         int HallId,
+        string HallName,
         DateTimeOffset StartAt,
         DateTimeOffset EndAt,
         decimal BasePrice,
@@ -49,7 +51,9 @@ public static class Get
                 .Select(x => new Result(
                     x.Id,
                     x.FilmId,
+                    x.Film.Title,
                     x.HallId,
+                    x.Hall.Name,
                     x.StartAt,
                     x.StartAt + x.Film.Duration,
                     x.BasePrice,
