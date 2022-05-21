@@ -23,6 +23,7 @@ public static class Index
     public record ScreeningResult(
         int Id,
         int HallId,
+        string HallName,
         DateTimeOffset StartAt,
         decimal BasePrice);
 
@@ -64,6 +65,7 @@ public static class Index
                             .Select(s => new ScreeningResult(
                                 s.Id,
                                 s.HallId,
+                                s.Hall.Name,
                                 s.StartAt,
                                 s.BasePrice))
                             .ToList()));
