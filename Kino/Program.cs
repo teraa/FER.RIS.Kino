@@ -41,7 +41,7 @@ builder.Services
         {
             IssuerSigningKey = key,
             ClockSkew = jwtOptions.ClockSkew,
-            ValidateLifetime = builder.Environment.IsProduction(),
+            ValidateLifetime = !builder.Environment.IsDevelopment(),
             ValidateAudience = false,
             ValidateIssuer = false,
         };
