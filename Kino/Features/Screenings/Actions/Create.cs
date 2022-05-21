@@ -42,6 +42,26 @@ public static class Create
 
         public async Task<IActionResult> Handle(Command request, CancellationToken cancellationToken)
         {
+            var duration = await _ctx.Films
+                .Where(x => x.Id == request.Model.FilmId)
+                .Select(x => (TimeSpan?)x.Duration)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (duration is null)
+                return new BadRequestResult();
+
+            var start = request.Model.StartAt.ToUniversalTime();
+            var end = start + duration;
+
+            bool overlaps = await _ctx.Screenings
+                .Where(x => x.HallId == request.Model.HallId)
+                .Where(x => x.StartAt <= end)
+                .Where(x => start <= x.StartAt + x.Film.Duration)
+                .AnyAsync(cancellationToken);
+
+            if (overlaps)
+                return new ConflictResult();
+
             var entity = new Screening
             {
                 FilmId = request.Model.FilmId,
