@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=example
   
   server:
-    image: "ghcr.io/teraa/kino:master"
+    image: ghcr.io/teraa/kino:master
     container_name: kino-server
     depends_on:
       - "db"

@@ -9,7 +9,7 @@ services:
       - 5432:5432
   
   server:
-    image: "ghcr.io/teraa/kino:master"
+    image: ghcr.io/teraa/kino:master
     container_name: kino-server
 #    build:
 #      context: .
