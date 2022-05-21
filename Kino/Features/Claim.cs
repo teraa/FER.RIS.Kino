@@ -8,8 +8,6 @@ namespace Kino.Features
 {
     public class Claim
     {
-        public const string Admin = nameof(Admin);
-
         public int UserId { get; set; }
         public string Type { get; set; }
 
