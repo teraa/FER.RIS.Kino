@@ -13,7 +13,9 @@ public static class Index
     public record Result(
         int Id,
         int UserId,
+        string UserName,
         int FilmId,
+        string FilmTitle,
         int Score,
         string Text,
         DateTimeOffset CreatedAt);
@@ -35,10 +37,17 @@ public static class Index
 
             if (request.UserId.HasValue)
                 query = query.Where(x => x.UserId == request.UserId);
-            
+
             var results = await query
                 .OrderBy(x => x.Id)
-                .Select(x => new Result(x.Id, x.UserId, x.FilmId, x.Score, x.Text, x.CreatedAt))
+                .Select(x => new Result(x.Id,
+                    x.UserId,
+                    x.User.Name,
+                    x.FilmId,
+                    x.Film.Title,
+                    x.Score,
+                    x.Text,
+                    x.CreatedAt))
                 .ToListAsync(cancellationToken);
 
             return new OkObjectResult(results);
