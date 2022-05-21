@@ -22,11 +22,12 @@ public class ReviewsController : ControllerBase
     /// <summary>
     /// Get All Reviews
     /// </summary>
+    /// <param name="userId">User ID to filter by (optional)</param>
     [HttpGet]
     [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
     [AllowAnonymous]
-    public async Task<IActionResult> Index(CancellationToken cancellationToken)
-        => await _mediator.Send(new Index.Query(), cancellationToken);
+    public async Task<IActionResult> Index(int? userId, CancellationToken cancellationToken)
+        => await _mediator.Send(new Index.Query(userId), cancellationToken);
 
     /// <summary>
     /// Create Review
