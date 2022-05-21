@@ -35,6 +35,7 @@ public class ScreeningsController : ControllerBase
     /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(Create.Result), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> Create(Create.Model model, CancellationToken cancellationToken)
         => await _mediator.Send(new Create.Command(model), cancellationToken);
 
