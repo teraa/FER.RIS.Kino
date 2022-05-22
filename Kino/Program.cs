@@ -140,3 +140,5 @@ app.MapControllers();
 
 await app.InitAsync();
 await app.RunAsync();
+
+public partial class Program { }
