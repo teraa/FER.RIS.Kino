@@ -22,12 +22,17 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
 ```
 
+## Run
+```sh
+docker-compose up -d
+```
+
 ## Update
 ```sh
 docker-compose pull server
 docker-compose up -d
 ```
 
-## URLs
+## API Docs
 - http://localhost:5000/swagger
 - http://localhost:5000/redoc
