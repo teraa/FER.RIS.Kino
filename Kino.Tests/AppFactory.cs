@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using JetBrains.Annotations; 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +17,8 @@ public class AppFactory : WebApplicationFactory<Program>
 
         builder.ConfigureServices(services =>
         {
-            services.RemoveAll(typeof(KinoDbContext));
-            services.RemoveAll(typeof(DbContextOptions<KinoDbContext>));
+            services.RemoveAll<KinoDbContext>();
+            services.RemoveAll<DbContextOptions<KinoDbContext>>();
 
             services.AddDbContext<KinoDbContext>((serviceProvider, options) =>
             {
@@ -31,7 +31,6 @@ public class AppFactory : WebApplicationFactory<Program>
                     contextOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
                 });
             });
-            
         });
     }
 }
