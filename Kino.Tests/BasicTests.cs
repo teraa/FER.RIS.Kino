@@ -1,14 +1,13 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace Kino.Tests;
 
-public class BasicTests : IClassFixture<WebApplicationFactory<Program>>
+public class BasicTests : IClassFixture<AppFactory>
 {
-    private readonly WebApplicationFactory<Program> _factory;
+    private readonly AppFactory _factory;
     
-    public BasicTests(WebApplicationFactory<Program> factory)
+    public BasicTests(AppFactory factory)
     {
         _factory = factory;
     }
