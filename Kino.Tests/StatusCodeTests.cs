@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Kino.Tests;
 
+[Collection("Integration")]
 public class StatusCodeTests : IClassFixture<AppFactory>
 {
     private readonly AppFactory _factory;
@@ -41,7 +42,7 @@ public class StatusCodeTests : IClassFixture<AppFactory>
     [InlineData("POST", "/Tickets", HttpStatusCode.UnsupportedMediaType)]
     [InlineData("PUT", "/Tickets/0", HttpStatusCode.Unauthorized)]
     [InlineData("DELETE", "/Tickets/0", HttpStatusCode.Unauthorized)]
-        
+         
     [InlineData("POST", "/Users", HttpStatusCode.UnsupportedMediaType)]
     [InlineData("PUT", "/Users/0", HttpStatusCode.Unauthorized)]
     [InlineData("DELETE", "/Users/0", HttpStatusCode.Unauthorized)]

@@ -12,6 +12,7 @@ using Xunit;
 
 namespace Kino.Tests;
 
+[Collection("Integration")]
 public class ScreeningTests : IClassFixture<AppFactory>, IAsyncLifetime
 {
     private readonly AppFactory _factory;
