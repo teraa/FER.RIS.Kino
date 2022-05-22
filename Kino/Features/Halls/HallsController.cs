@@ -8,7 +8,7 @@ namespace Kino.Features.Halls;
 [ApiController]
 [Route("[controller]")]
 [Produces("application/json")]
-[Authorize]
+[AllowAnonymous]
 public class HallsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -23,7 +23,6 @@ public class HallsController : ControllerBase
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(Index.Result), StatusCodes.Status200OK)]
-    [AllowAnonymous]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
         => await _mediator.Send(new Index.Query(), cancellationToken);
 }
