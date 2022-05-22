@@ -6,6 +6,7 @@ namespace Kino;
 public class DbOptions
 {
     public string ConnectionString { get; set; }
+    public string TestsConnectionString { get; set; }
 }
 
 public class JwtOptions
