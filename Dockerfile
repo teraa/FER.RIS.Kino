@@ -1,11 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /source
 
-COPY Kino.sln .
-COPY Kino/Kino.csproj ./Kino/
+COPY Kino/Kino.csproj .
 RUN dotnet restore
 
-COPY . .
+COPY Kino/ .
 RUN dotnet publish --no-restore -c Release -o bin/publish
 
 
