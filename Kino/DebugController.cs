@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kino;
 
-// TODO: Remove
+#if DEBUG
 [ApiController]
 [Route("[controller]")]
-public class TestController : ControllerBase
+public class DebugController : ControllerBase
 {
     [HttpGet]
     public IActionResult Get()
@@ -22,3 +22,4 @@ public class TestController : ControllerBase
     public IActionResult GetAdmin()
         => Ok("Admin");
 }
+#endif
