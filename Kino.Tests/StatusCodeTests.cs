@@ -16,7 +16,6 @@ public class StatusCodeTests : IClassFixture<AppFactory>
     }
 
     [Theory]
-    [InlineData("GET", "/Test", HttpStatusCode.OK)]
     
     [InlineData("GET", "/Films", HttpStatusCode.OK)]
     [InlineData("GET", "/Halls", HttpStatusCode.OK)]

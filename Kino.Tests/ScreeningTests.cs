@@ -39,22 +39,6 @@ public class ScreeningTests : IClassFixture<AppFactory>, IAsyncLifetime
         _scope.Dispose();
     }
 
-    [Theory]
-    [InlineData("/Test")]
-    public async Task Get_Test(string url)
-    {
-        // Arrange
-        var client = _factory.CreateClient();
-        
-        // Act
-        var response = await client.GetAsync(url);
-        
-        // Assert
-        response.EnsureSuccessStatusCode();
-        string responseText = await response.Content.ReadAsStringAsync();
-        Assert.Equal("Hello World!", responseText);
-    }
-
     [Fact]
     public async Task Add_ConflictingTimesScreenings_Error()
     {
